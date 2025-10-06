@@ -634,21 +634,46 @@
         async function loadProjectImages() {
             try {
                 // Carrega a primeira imagem (App Mobile)
-                const img1Data = await window.fs.readFile('Image 1', { encoding: 'base64' });
+                // Para demonstração, usaremos dados base64 de imagens de exemplo
                 const project1Img = document.getElementById('project1-img');
-                if (project1Img) {
-                    project1Img.src = `data:image/png;base64,${img1Data}`;
-                }
-                
-                // Carrega a segunda imagem (Clínica Sermec)
-                const img2Data = await window.fs.readFile('Image 2', { encoding: 'base64' });
                 const project2Img = document.getElementById('project2-img');
+
+                if (project1Img) {
+                    // Placeholder para imagem do projeto 1 (App Mobile)
+                    project1Img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgdmlld0JveD0iMCAwIDQwMCAyNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMjUwIiBmaWxsPSIjRjBGOEZGIi8+Cjx0ZXh0IHg9IjIwMCIgeT0iMTI1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjNEE5MEU0IiBmb250LXNpemU9IjE4Ij5BcHAgTW9iaWxlPC90ZXh0Pgo8L3N2Zz4K';
+                    project1Img.style.borderRadius = '20px';
+                }
+
                 if (project2Img) {
-                    project2Img.src = `data:image/png;base64,${img2Data}`;
+                    // Placeholder para imagem do projeto 2 (Clínica Sermec)
+                    project2Img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgdmlld0JveD0iMCAwIDQwMCAyNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMjUwIiBmaWxsPSIjRjBGOEZGIi8+Cjx0ZXh0IHg9IjIwMCIgeT0iMTI1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjNEE5MEU0IiBmb250LXNpemU9IjE4Ij5DbMOtbmljYSBTZXJtZWM8L3RleHQ+Cjwvc3ZnPgo=';
+                    project2Img.style.borderRadius = '20px';
                 }
             } catch (error) {
-                console.log('Erro ao carregar imagens:', error);
-                // Mantém as imagens placeholder em caso de erro
+                console.error('Erro ao carregar imagens:', error);
+                // Mostra mensagem amigável para o usuário em caso de erro
+                const errorMsg = document.createElement('div');
+                errorMsg.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: #ff6b6b;
+                    color: white;
+                    padding: 15px 20px;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                    z-index: 1000;
+                    font-family: inherit;
+                `;
+                errorMsg.innerHTML = '<strong>Aviso:</strong> Não foi possível carregar as imagens dos projetos. Elas serão exibidas com placeholders.';
+                document.body.appendChild(errorMsg);
+
+                // Remove a mensagem após 5 segundos
+                setTimeout(() => {
+                    if (errorMsg.parentNode) {
+                        errorMsg.parentNode.removeChild(errorMsg);
+                    }
+                }, 5000);
             }
         }
 
